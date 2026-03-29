@@ -4,16 +4,18 @@ const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
     res.json({
-        message: 'Hello from CI/CD pipeline!',
-        version: process.env.APP_VERSION || '1.0.0',
+        message: 'Deployed via SSH!',
+        version: process.env.APP_VERSION || 'v1',
         timestamp: new Date().toISOString()
     });
 });
 
 app.get('/health', (req, res) => {
-    res.json({ status: 
+    res.json({ status: 'broken' });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
 });
+
+module.exports = server;    // ← export so test.js can close it
